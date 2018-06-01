@@ -4,6 +4,8 @@
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-content-service" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-manager-web" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-portal-web" />
+    <file type="web" url="file://$PROJECT_DIR$/pinyougou-search-service" />
+    <file type="web" url="file://$PROJECT_DIR$/pinyougou-search-web" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-sellergoods-service" />
     <file type="web" url="file://$PROJECT_DIR$/pinyougou-shop-web" />
   </component>
@@ -21,6 +23,10 @@
         <option value="$PROJECT_DIR$/pinyougou-content-service/pom.xml" />
         <option value="$PROJECT_DIR$/pinyougou-content-interface/pom.xml" />
         <option value="$PROJECT_DIR$/pinyougou-portal-web/pom.xml" />
+        <option value="$PROJECT_DIR$/pinyougou-solr-util/pom.xml" />
+        <option value="$PROJECT_DIR$/pinyougou-search-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/pinyougou-search-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pinyougou-search-web/pom.xml" />
       </list>
     </option>
   </component>

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.pinyougou.mapper.TbSpecificationOptionMapper;
 import com.pinyougou.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.pinyougou.pojo.TbTypeTemplateExample.Criteria;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 
 import entity.PageResult;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -30,7 +32,27 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
 	@Autowired
 	private TbSpecificationOptionMapper specificationOptionMapper;
-	
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+
+	/**
+	 * 将数据存入缓存
+	 */
+	private void saveRedis(){
+		// 获取模板数据
+		List<TbTypeTemplate> list = findAll();
+		// 循环模板
+		for (TbTypeTemplate typeTemplate:list){
+			// 查询品牌规格
+			List<Map> boundList = JSON.parseArray(typeTemplate.getBrandIds(),Map.class);
+			redisTemplate.boundHashOps("brandList").put(typeTemplate.getId(),boundList);
+			//存储规格列表
+			List<Map> specList = findSpecList(typeTemplate.getId());
+			redisTemplate.boundHashOps("specList").put(typeTemplate.getId(),specList);
+		}
+	}
+
 	/**
 	 * 查询全部
 	 */
@@ -46,6 +68,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 	public PageResult findPage(int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);		
 		Page<TbTypeTemplate> page=   (Page<TbTypeTemplate>) typeTemplateMapper.selectByExample(null);
+
+		saveRedis();// 存入到缓存中
+
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 
@@ -111,6 +136,11 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		}
 		
 		Page<TbTypeTemplate> page= (Page<TbTypeTemplate>)typeTemplateMapper.selectByExample(example);		
+
+		// 存入数据到缓存
+		saveRedis();
+		System.out.println("redis更新模板");
+
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 

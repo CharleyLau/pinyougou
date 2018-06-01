@@ -29,5 +29,8 @@
     <dubbo:application name="pinyougou-portal-web" />
     <dubbo:registry address="zookeeper://192.168.25.128:2181"/>
     <dubbo:annotation package="com.pinyougou.portal.controller" />
+    <!--reference注入失败可以采用下面的方式注入服务-->
+    <!--<context:component-scan base-package="com.pinyougou.portal.controller"></context:component-scan>-->
+    <!--<dubbo:reference id="contentService" interface="com.pinyougou.content.service.ContentService"></dubbo:reference>-->
 
 </beans>
