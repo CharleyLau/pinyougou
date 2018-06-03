@@ -93,33 +93,6 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 
-	private void setItemValues(TbItem item,Goods goods){
-		//商品分类
-		item.setCategoryid(goods.getGoods().getCategory3Id());//三级分类ID
-		item.setCreateTime(new Date());//创建日期
-		item.setUpdateTime(new Date());//更新日期
-
-		item.setGoodsId(goods.getGoods().getId());//商品ID
-		item.setSellerId(goods.getGoods().getSellerId());//商家ID
-
-		//分类名称
-		TbItemCat itemCat = itemCatMapper.selectByPrimaryKey(goods.getGoods().getCategory3Id());
-		item.setCategory(itemCat.getName());
-		//品牌名称
-		TbBrand brand = brandMapper.selectByPrimaryKey(goods.getGoods().getBrandId());
-		item.setBrand(brand.getName());
-		//商家名称(店铺名称)
-		TbSeller seller = sellerMapper.selectByPrimaryKey(goods.getGoods().getSellerId());
-		item.setSeller(seller.getNickName());
-
-		//图片
-		List<Map> imageList = JSON.parseArray( goods.getGoodsDesc().getItemImages(), Map.class) ;
-		if(imageList.size()>0){
-			item.setImage( (String)imageList.get(0).get("url"));
-		}
-
-	}
-
 	//插入sku列表数据
 	private void saveItemList(Goods goods){
 
@@ -150,6 +123,33 @@ public class GoodsServiceImpl implements GoodsService {
 			setItemValues(item,goods);
 
 			itemMapper.insert(item);
+		}
+
+	}
+
+	private void setItemValues(TbItem item,Goods goods){
+		//商品分类
+		item.setCategoryid(goods.getGoods().getCategory3Id());//三级分类ID
+		item.setCreateTime(new Date());//创建日期
+		item.setUpdateTime(new Date());//更新日期
+
+		item.setGoodsId(goods.getGoods().getId());//商品ID
+		item.setSellerId(goods.getGoods().getSellerId());//商家ID
+
+		//分类名称
+		TbItemCat itemCat = itemCatMapper.selectByPrimaryKey(goods.getGoods().getCategory3Id());
+		item.setCategory(itemCat.getName());
+		//品牌名称
+		TbBrand brand = brandMapper.selectByPrimaryKey(goods.getGoods().getBrandId());
+		item.setBrand(brand.getName());
+		//商家名称(店铺名称)
+		TbSeller seller = sellerMapper.selectByPrimaryKey(goods.getGoods().getSellerId());
+		item.setSeller(seller.getNickName());
+
+		//图片
+		List<Map> imageList = JSON.parseArray( goods.getGoodsDesc().getItemImages(), Map.class) ;
+		if(imageList.size()>0){
+			item.setImage( (String)imageList.get(0).get("url"));
 		}
 
 	}

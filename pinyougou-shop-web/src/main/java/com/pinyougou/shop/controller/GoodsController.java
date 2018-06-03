@@ -50,11 +50,11 @@ public class GoodsController{
 	 */
 	@RequestMapping("/add")
 	public Result add(@RequestBody Goods goods){
-		//获取登录名
-		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
-		goods.getGoods().setSellerId(sellerId);//设置商家ID
 
 		try {
+			//获取登录名
+			String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+			goods.getGoods().setSellerId(sellerId);//设置商家ID
 			goodsService.add(goods);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {

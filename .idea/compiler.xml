@@ -12,6 +12,9 @@
         <module name="pinyougou-content-interface" />
         <module name="pinyougou-content-service" />
         <module name="pinyougou-manager-web" />
+        <module name="pinyougou-page-interface" />
+        <module name="pinyougou-page-service" />
+        <module name="pinyougou-page-web" />
         <module name="pinyougou-portal-web" />
         <module name="pinyougou-search-interface" />
         <module name="pinyougou-search-service" />
@@ -30,6 +33,9 @@
       <module name="pinyougou-content-service" target="1.7" />
       <module name="pinyougou-content-service (1)" target="1.5" />
       <module name="pinyougou-manager-web" target="1.7" />
+      <module name="pinyougou-page-interface" target="1.5" />
+      <module name="pinyougou-page-service" target="1.7" />
+      <module name="pinyougou-page-web" target="1.7" />
       <module name="pinyougou-parent" target="1.7" />
       <module name="pinyougou-portal-web" target="1.7" />
       <module name="pinyougou-search-interface" target="1.7" />
